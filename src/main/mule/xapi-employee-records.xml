@@ -9,6 +9,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="xapi-employee-recordsFlow" doc:id="dec7a417-82e7-46f1-8919-e16feb5370a2" >
 		<http:listener doc:name="Listener" doc:id="d66993f1-86db-4f54-a5e7-396891474356" config-ref="HTTP_Listener_config" path="/"/>
 		<http:request method="GET" doc:name="ProcessApi" doc:id="0f916de0-734f-45bf-b077-384e27c5866c" config-ref="HTTP_Request_configuration" url="http://"/>
+		<logger level="INFO" doc:name="Logger" doc:id="a118b4a4-d7d5-473d-a269-8b1020e68169" message="After calling Process api == #[payload]"/>
 		<ee:transform doc:name="Transform Message" doc:id="f755efed-8aed-486a-a4b9-873d0d6a28be" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
