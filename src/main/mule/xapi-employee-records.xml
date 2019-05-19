@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="40401520-a826-4582-a8d5-50b466fddce7" />
+	<flow name="xapi-employee-recordsFlow" doc:id="dec7a417-82e7-46f1-8919-e16feb5370a2" >
+		<http:listener doc:name="Listener" doc:id="d66993f1-86db-4f54-a5e7-396891474356" config-ref="HTTP_Listener_config" path="/"/>
+		<http:request method="GET" doc:name="ProcessApi" doc:id="0f916de0-734f-45bf-b077-384e27c5866c" config-ref="HTTP_Request_configuration" url="http://"/>
+		<ee:transform doc:name="Transform Message" doc:id="f755efed-8aed-486a-a4b9-873d0d6a28be" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
