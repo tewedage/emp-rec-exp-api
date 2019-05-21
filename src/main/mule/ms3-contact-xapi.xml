@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="900d1cc1-6e1d-43f8-83d0-b434ba65a85e" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="ExperianceApi" doc:id="414a219f-d26e-49ed-a542-c5f949259de6" >
+		<http:listener doc:name="Listener" doc:id="d9b01d4f-fc29-456f-ad28-507afd2cd5fa" config-ref="HTTP_Listener_config" path="/experianceApi"/>
+		<logger level="INFO" doc:name="Logger" doc:id="8dcf9374-d52f-42fb-bfef-a871a4f008ec" />
+		<http:request method="POST" doc:name="ProcessApi" doc:id="eba8acb7-d708-4660-aa39-ca339a40b81f" url="http://localhost:8081/ProcessApi"/>
+		<error-handler >
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="44b24061-4d83-4b30-ab5c-5250266fa852" >
+				<set-payload value="#[ErrorMessage:error.description]" doc:name="Set Payload" doc:id="d34dec0f-3609-4bc4-8222-83dbff1ed4bd" />
+			</on-error-continue>
+		</error-handler>
+	</flow>
+</mule>
