@@ -10,11 +10,11 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	</http:listener-config>
 	<flow name="ExperianceApi" doc:id="414a219f-d26e-49ed-a542-c5f949259de6" >
 		<http:listener doc:name="Listener" doc:id="d9b01d4f-fc29-456f-ad28-507afd2cd5fa" config-ref="HTTP_Listener_config" path="/experianceApi"/>
-		<logger level="INFO" doc:name="Logger" doc:id="8dcf9374-d52f-42fb-bfef-a871a4f008ec" />
-		<http:request method="POST" doc:name="ProcessApi" doc:id="eba8acb7-d708-4660-aa39-ca339a40b81f" url="http://localhost:8081/ProcessApi"/>
+		<logger level="INFO" doc:name="Logger" doc:id="8dcf9374-d52f-42fb-bfef-a871a4f008ec" message="this is before"/>
+		<http:request method="POST" doc:name="ProcessApi" doc:id="eba8acb7-d708-4660-aa39-ca339a40b81f" url="${systemapi.update_url}"/>
 		<error-handler >
 			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="44b24061-4d83-4b30-ab5c-5250266fa852" >
-				<set-payload value="#[ErrorMessage:error.description]" doc:name="Set Payload" doc:id="d34dec0f-3609-4bc4-8222-83dbff1ed4bd" />
+				<set-payload value="#[ErrorMessage:error.description] " doc:name="Set Payload" doc:id="d34dec0f-3609-4bc4-8222-83dbff1ed4bd" />
 			</on-error-continue>
 		</error-handler>
 	</flow>
